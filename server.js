@@ -37,9 +37,13 @@ app.use("/*", require("./routes/404"));
 
 app.use(errorHandler);
 
-mongoose.connection.once("open", () => {
-  console.log("connected to mongoDB");
-  app.listen(PORT, () => {
-    console.log(`server is listening on PORT ${PORT} `);
-  });
+// mongoose.connection.once("open", () => {
+//   console.log("connected to mongoDB");
+  
+// });
+
+
+app.listen(PORT, () => {
+  console.log(`server is listening on PORT ${PORT}  `);
 });
+

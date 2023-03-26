@@ -17,7 +17,7 @@ const addNewExericsetoDB = async (req, res) => {
   const newexericse = ({
     bodypart,
     equipment,
-    gifurl,
+    gifUrl,
     id,
     username,
     target,
@@ -27,7 +27,7 @@ const addNewExericsetoDB = async (req, res) => {
   const newexerciseobj = {
     bodypart,
     equipment,
-    gifurl,
+    gifUrl,
     id,
     username,
     target,
@@ -38,7 +38,7 @@ const addNewExericsetoDB = async (req, res) => {
     const savedexercise = await ExerciseSchema.create(newexerciseobj);
     console.log("saved exercises", savedexercise);
     return res.status(201).json({
-      message: `Exericse${savedexercise.exercise_name} wassaved to DB`,
+      message: `Exericse${savedexercise.exercise_name} was saved to DB`,
     });
   } catch (error) {
     res.status(400).json({
@@ -49,29 +49,29 @@ const addNewExericsetoDB = async (req, res) => {
 };
 
 const deleteExercisefromDB = async (req, res) => {
-  const { _id } = req.body;
+  const { id } = req.body;
 
-  if (!_id) {
+  if (!id) {
     return res.status(400).json({ message: "no id provided" });
   }
 
   const exercise = await ExerciseSchema.findOne({
-    _id,
+    id,
   }).exec();
 
   if (!exercise) return res.status(204).json({ message: "no exercise found" });
 
   try {
     result = await ExerciseSchema.deleteOne({
-      _id,
+      id,
     }).exec();
     console.log("deleted result", result);
     res
       .status(200)
-      .json({ message: `Exercise${_id} sucessfully deleted from DB` });
+      .json({ message: `Exercise${id} sucessfully deleted from DB` });
   } catch (error) {
     console.log("Error", error);
-    res.status(400).json({ message: `Exercise${_id} NOT DELETED` });
+    res.status(400).json({ message: `Exercise${id} NOT DELETED` });
   }
 };
 

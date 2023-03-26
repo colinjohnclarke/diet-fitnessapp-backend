@@ -14,17 +14,29 @@ const getallRecipiesfromDB = async (req, res) => {
 };
 
 const handleNewRecipie = async (req, res) => {
-  const { user, name } = req.body;
+  const {
+    user,
+    title,
+    image,
+    extendedIngredients,
+    servings,
+    weightWatcherSmartPoints,
+    readyinminutes,
+  } = req.body;
 
-  const recipieobject = { user, name };
+  const recipieobject = {
+    user,
+    title,
+    image,
+    extendedIngredients,
+    servings,
+    weightWatcherSmartPoints,
+    readyinminutes,
+  };
 
   try {
     console.log(recipieobject);
-    const savedrecipies = await RecipieFavouritesSchema.create({
-      user: user,
-      name: name,
-    });
-
+    const savedrecipies = await RecipieFavouritesSchema.create(recipieobject);
     console.log(savedrecipies);
     res.status(201).json({
       message: `New recipie ${recipieobject.name} created sucessfully`,
@@ -35,20 +47,27 @@ const handleNewRecipie = async (req, res) => {
 };
 
 const deleterecipiefromDB = async (req, res) => {
-  if (!req.body.id) {
+  const { id } = req.body;
+
+  if (!id) {
     return res.status(400).json({ message: "id required" });
   }
 
   const recipie = await RecipieFavouritesSchema.findOne({
-    _id: req.body.id,
+    id,
   }).exec();
   if (!recipie) {
     res.status(204).json({ message: "No recipie matches" });
   }
   try {
     const result = await RecipieFavouritesSchema.deleteOne({
-      _id: req.body.id,
-    });
+      id,
+    }).exec();
+
+    res
+      .status(200)
+      .json({ message: `recipie${id} was successfully deleted from DB` });
+
     console.log(result);
   } catch (error) {
     console.log(error);

@@ -13,7 +13,7 @@ const exerciseSchema = new Schema({
   equipment: {
     type: String,
   },
-  gifurl: {
+  gifUrl: {
     type: String,
   },
   id: {
@@ -24,6 +24,9 @@ const exerciseSchema = new Schema({
     type: String,
   },
   target: {
+    type: String,
+  },
+  colin: {
     type: String,
   },
 });

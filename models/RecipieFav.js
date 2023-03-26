@@ -6,7 +6,22 @@ const RecipieFavouritesSchema = new Schema({
   user: {
     type: String,
   },
-  name: {
+  title: {
+    type: String,
+  },
+  image: {
+    type: String,
+  },
+  extendedIngredients: {
+    type: Array,
+  },
+  servings: {
+    type: String,
+  },
+  weightWatcherSmartPoints: {
+    type: String,
+  },
+  readyinminutes: {
     type: String,
   },
 });
